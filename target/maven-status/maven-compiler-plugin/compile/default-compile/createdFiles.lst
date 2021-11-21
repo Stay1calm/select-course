@@ -1,0 +1,17 @@
+com\wm\colloge\service\CollogeService.class
+com\wm\colloge\entity\CollogeParm.class
+com\wm\colloge\controllor\CollogeServlet.class
+com\wm\colloge\service\impl\CollogeServiceImpl.class
+com\wm\colloge\dao\impl\CollogeDaoImpl.class
+com\wm\utils\JDBCUtils.class
+com\wm\colloge\entity\TableData.class
+com\wm\course\controllor\CourseServlet.class
+com\wm\login\controllor\LoginServlet.class
+com\wm\colloge\dao\CollogeDao.class
+com\wm\major\controllor\MajorServlet.class
+com\wm\test\TestServlet.class
+com\wm\setcourse\controllor\SetCourseServlet.class
+com\wm\colloge\entity\Colloge.class
+com\wm\teachear\controllor\TeacherServlet.class
+controllor\ClassServlet.class
+com\wm\student\controllor\StudentServlet.class
