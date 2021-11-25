@@ -28,4 +28,19 @@ public class CollogeServiceImpl  implements CollogeService {
             return collogeDao.getCount(parm);
 
     }
+
+    @Override
+    public Colloge getById(int collogeId) {
+        return collogeDao.getById(collogeId);
+    }
+
+    @Override
+    public void updateById(Colloge colloge) {
+        collogeDao.updateById(colloge);
+    }
+
+    @Override
+    public void deleteById(int collogeId) {
+        collogeDao.deldeteById(collogeId);
+    }
 }

@@ -38,9 +38,52 @@ public class CollogeServlet  extends HttpServlet {
        }else if (method.equals("list"))
        {
            list(req,resp);
+       }else if (method.equals("editUI"))
+       {
+           editUI(req,resp);
+       }else if (method.equals("editSave")){
+           editSave(req,resp);
+       }else if (method.equals("delete"))
+       {
+           delete(req,resp);
        }
     }
-        //查询数据列表
+    //  根据id删除
+    private void delete(HttpServletRequest req, HttpServletResponse resp) {
+        int collogeId = Integer.parseInt(req.getParameter("collogeId"));
+        //调用service删除
+        collogeService.deleteById(collogeId);
+        //返回信息给前端
+        JSONObject object = new JSONObject();
+        object.put("code",200);
+        object.put("msg","删除成功");
+        resp.setContentType("application/json;charset=UTF-8");
+        try {
+            resp.getWriter().print(object.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private void editUI(HttpServletRequest req, HttpServletResponse resp) {
+        //编辑数据获取id
+        int collogeId= Integer.parseInt(req.getParameter("collogeId"));
+        //根据id查询要编辑的数据
+        Colloge colloge = collogeService.getById(collogeId);
+        //放到request对象
+        req.setAttribute("colloge",colloge);
+        //返回页面给前端
+        try {
+            req.getRequestDispatcher(PREX+"/colloge_edit.jsp").forward(req,resp);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //查询数据列表
     private void list(HttpServletRequest req, HttpServletResponse resp) {
         //返回的数据格式
         TableData result = new TableData();
@@ -99,6 +142,34 @@ public class CollogeServlet  extends HttpServlet {
         result.put("code",200);
         result.put("msg","新增成功！");
         resp.getWriter().write(result.toJSONString());
+
+    }
+        //编辑保存
+    private void editSave(HttpServletRequest req, HttpServletResponse resp) {
+        //获取从前端传回来的参数
+        int collogeId = Integer.valueOf(req.getParameter("collogeId"));
+        String collogeName = req.getParameter("collogeName");
+        int orderNum = Integer.valueOf(req.getParameter("orderNum"));
+        //封装数据
+        Colloge colloge = new Colloge();
+        colloge.setCollogeId(collogeId);
+        colloge.setCollogeName(collogeName);
+        colloge.setOrderNum(orderNum);
+        System.out.println(colloge);
+        //调用sevice层
+        collogeService.updateById(colloge);
+        //返回前端
+
+        JSONObject  result= new JSONObject();
+        result.put("code",200);
+        result.put("msg","修改成功");
+        resp.setContentType("application/json;charset=UTF-8");
+        try {
+            resp.getWriter().print(result.toJSONString());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
 
     }
 

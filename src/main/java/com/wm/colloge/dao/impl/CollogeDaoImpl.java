@@ -1,16 +1,13 @@
 package com.wm.colloge.dao.impl;
-
 import com.wm.colloge.dao.CollogeDao;
 import com.wm.colloge.entity.Colloge;
 import com.wm.colloge.entity.CollogeParm;
 import com.wm.utils.JDBCUtils;
-import jdk.nashorn.internal.ir.CallNode;
 import org.apache.commons.dbutils.*;
 import org.apache.commons.dbutils.handlers.BeanHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang.StringUtils;
-
 import java.sql.SQLException;
 import java.util.List;
 
@@ -87,5 +84,49 @@ public class CollogeDaoImpl  implements CollogeDao {
         }
 
         return 0;
+    }
+
+    @Override
+    public Colloge getById(int collogeId) {
+        //定义sql
+        String sql="select * from colloge where colloge_id=?";
+        //定义handler
+        BeanHandler<Colloge> handler=new BeanHandler<>(Colloge.class,processor);
+        try {
+           return query.query(sql,handler,collogeId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public void updateById(Colloge colloge) {
+        //定义sql
+        String sql="update colloge set colloge_name=?,order_num=? where colloge_id=?";
+
+        //定义参数
+        Object[] parms={
+                colloge.getCollogeName(),
+                colloge.getOrderNum(),
+                colloge.getCollogeId()
+        };
+        try {
+            System.out.println(sql);
+            query.update(sql,parms);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    @Override
+    public void deldeteById(int collogeId) {
+        String sql="delete  from colloge where colloge_id=?";
+        try {
+            query.update(sql,collogeId);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
     }
 }

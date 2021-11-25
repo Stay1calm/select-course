@@ -52,7 +52,7 @@
                     <%--@declare id="captcha"--%><label class="layui-icon layui-icon-vercode" for="captcha"></label>
                     <input type="text" name="captcha" id="captcha" lay-verify="required|captcha" placeholder="图形验证码" autocomplete="off" class="layui-input verification captcha" value="xszg">
                     <div class="captcha-img">
-                        <img id="captchaPic" src="../images/captcha.jpg">
+                        <img id="captchaPic" onclick="this.src='/Kaptcha?d='+Math.random()" src="/Kaptcha">
                     </div>
                 </div>
                 <div class="layui-form-item" style="text-align: center">
